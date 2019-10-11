@@ -1,4 +1,6 @@
 <?php
+	header('Access-Control-Allow-Origin: *');
+	
 	$host						= 'https://indoxxi.cx';
 	
 	/* get the whole content */
@@ -43,7 +45,7 @@
 			(
 				'title'			=> (isset($title[1]) ? $title[1] : 'No Title!'),
 				'poster'		=> (isset($poster[1]) ? $poster[1] : ''),
-				'slug'			=> $link,
+				'slug'			=> str_replace(array('http://', 'https://'), '', $link),
 				'serial'		=> (int) $serial,
 				'rating'		=> (isset($rating[1]) ? $rating[1] : ''),
 				'duration'		=> (isset($duration[1]) ? $duration[1] . 'm' : ''),
