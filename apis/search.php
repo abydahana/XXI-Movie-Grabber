@@ -1,7 +1,7 @@
 <?php
 	header('Access-Control-Allow-Origin: *');
 	
-	$host						= 'https://indoxxi.cx';
+	$host						= 'http://103.194.171.75/';
 	
 	/* get the whole content */
 	$content					= (isset($_GET['q']) && !empty($_GET['q']) ? file_get_contents($host . '/s/' . urlencode((isset($_GET['q']) ? $_GET['q'] : 'a')) . (isset($_GET['p']) ? '/' . $_GET['p'] : null)) : file_get_contents($host));
