@@ -1,6 +1,8 @@
 <?php
-	$host											= (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'https://playdrv.akubebas.com/tv/?' : 'https://playdrv.akubebas.com/mv/?');
-	$trailer_host									= 'https://playmv.akubebas.com/?';
+	header('Access-Control-Allow-Origin: noad.dwitrimedia.com');
+	
+	$host											= (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'https://playdrv.kotaksilver.casa/tv/?' : 'https://playdrv.kotaksilver.casa/mv/?');
+	$trailer_host									= 'https://playmv.kotaksilver.casa/?';
 	$origin											= 'http://103.194.171.75/';
 	$referer										= $origin . (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'film-seri' : 'movie') . '/';
 	$params											= array
@@ -31,7 +33,28 @@
 		/**
 		 * Get the movie properties
 		 */
-		$page										= file_get_contents($referer . $_GET['slug'] . '/play' . (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'tv' : ''));
+		$url										= $referer . $_GET['slug'] . '/play' . (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'tv' : '');
+		
+		$ch											= curl_init();
+		curl_setopt_array
+		(
+			$ch,
+			array
+			(
+				CURLOPT_HEADER						=> 0,
+				CURLOPT_RETURNTRANSFER				=> 1,
+				CURLOPT_URL							=> $url,
+				CURLOPT_FOLLOWLOCATION				=> true,
+				CURLOPT_HTTPHEADER					=> array
+				(
+					'Referer: ' . $url
+				)
+			)
+		);
+		
+		$page										= curl_exec($ch);
+		curl_close($ch);
+		
 		preg_match('/<meta property="og:title" content="(.*?)"/', $page, $title);
 		preg_match('/<meta property="og:description" content="(.*?)"/', $page, $description);
 		preg_match('/<meta property="og:image" content="(.*?)"/', $page, $poster);
