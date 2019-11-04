@@ -1,7 +1,7 @@
 <?php
 	$host											= (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'https://playdrv.akubebas.com/tv/?' : 'https://playdrv.akubebas.com/mv/?');
 	$trailer_host									= 'https://playmv.akubebas.com/?';
-	$origin											= 'https://indoxxi.cx/';
+	$origin											= 'http://103.194.171.75/';
 	$referer										= $origin . (isset($_GET['serial']) && 1 == $_GET['serial'] ? 'film-seri' : 'movie') . '/';
 	$params											= array
 	(
